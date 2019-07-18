@@ -39,4 +39,4 @@ curl -G '<YOUR-CLUSTER>:<CLUSTER-PORT>/loader/<loadId>'
 
 # Lambda function
 1. Use the following AWS provided stack to create a lambda function use in Neptune: https://docs.aws.amazon.com/neptune/latest/userguide/get-started-cfn-lambda.html. Make sure to enter the NeptuneClusterEndpoint and select the NeptuneClientSG and the correct Subnets.
-2. 
+2. Go to the Lambda Dashboard, open the newly made function and replace the code inside of `lambda_function.py` with the contents of `lambda.py` from this repository.
