@@ -91,6 +91,9 @@ Parameters:
     Description: Neptune Load From S3 IAM Role Arn
     Type: String
   NeptuneSG:
+    Description: Neptune Security Group
+    Type: String
+  NeptuneClientSG:
     Description: Neptune Client Security Group
     Type: String
   NeptuneEC2InstanceProfile:

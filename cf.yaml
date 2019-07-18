@@ -1,6 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: Neptune full stack with gremlin and rd4j console
 Parameters:
+  CloudFormationS3Path:
+    Description: Path to the folder that the cf-base and cf-ec2 files reside.
+    Type: String
   EC2SSHKeyPairName:
     Description: >-
       Name of an existing EC2 KeyPair to enable SSH access to the instances.
@@ -148,10 +151,7 @@ Resources:
   NeptuneStack:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
-      TemplateURL: !Join 
-        - ''
-        - - >-
-            https://knowledge-graph-dmmaillo.s3.amazonaws.com/cf-base.yaml
+      TemplateURL: !Sub ${CloudFormationS3Path}/cf-base.yaml
       TimeoutInMinutes: '15'
       Parameters:
         Env: !Ref Env
@@ -164,10 +164,7 @@ Resources:
   NeptuneEC2Client:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
-      TemplateURL: !Join 
-        - ''
-        - - >-
-            https://knowledge-graph-dmmaillo.s3.amazonaws.com/cf-ec2.yaml
+      TemplateURL: !Sub ${CloudFormationS3Path}/cf-ec2.yaml
       TimeoutInMinutes: '30'
       Parameters:
         Env: !Ref Env
