@@ -193,6 +193,9 @@ Resources:
           - Outputs.NeptuneLoadFromS3IAMRoleArn
         NeptuneSG: !GetAtt 
           - NeptuneStack
+          - Outputs.NeptuneSG
+        NeptuneClientSG: !GetAtt 
+          - NeptuneStack
           - Outputs.NeptuneClientSG
         NeptuneEC2InstanceProfile: !GetAtt 
           - NeptuneStack
