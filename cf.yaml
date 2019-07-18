@@ -152,7 +152,7 @@ Resources:
   NeptuneStack:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
-      TemplateURL: !Sub ${CloudFormationS3Path}/cf-base.yaml
+      TemplateURL: !Sub ${CloudFormationS3Path}cf-base.yaml
       TimeoutInMinutes: '15'
       Parameters:
         Env: !Ref Env
@@ -165,7 +165,7 @@ Resources:
   NeptuneEC2Client:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
-      TemplateURL: !Sub ${CloudFormationS3Path}/cf-ec2.yaml
+      TemplateURL: !Sub ${CloudFormationS3Path}cf-ec2.yaml
       TimeoutInMinutes: '30'
       Parameters:
         Env: !Ref Env
