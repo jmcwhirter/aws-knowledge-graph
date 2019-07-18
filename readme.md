@@ -11,7 +11,7 @@ curl -X POST \
       "failOnError" : "FALSE",
       "parallelism" : "MEDIUM"
     }'
-    ```
+```
 
 After entering the above, you will get something like this back:
 ```
