@@ -2,8 +2,9 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: Neptune full stack with gremlin and rd4j console
 Parameters:
   CloudFormationS3Path:
-    Description: Path to the folder that the cf-base and cf-ec2 files reside.
+    Description: Path to the folder that the cf-base and cf-ec2 files reside. Required.
     Type: String
+    Default: ''
   EC2SSHKeyPairName:
     Description: >-
       Name of an existing EC2 KeyPair to enable SSH access to the instances.
