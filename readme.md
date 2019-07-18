@@ -21,3 +21,8 @@ After entering the above, you will get something like this back:
         "loadId" : "ef478d76-d9da-4d94-8ff1-08d9d4863aa5"
     }
 }
+```
+To confirm that the data was loaded correctly, run the follow code replace '<loadId>' with the load ID from the response:
+```
+curl -G '<YOUR-CLUSTER>:<CLUSTER-PORT>/loader/<loadId>'
+```
