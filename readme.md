@@ -5,23 +5,26 @@
 
       For the CloudFormationS3Path, follow this example: https://your-bucket-name.s3.amazonaws.com/
 
-**Load Data**
-```
+**Loading Data**
+1. Upload data into a S3 bucket. (sample data is provided in `sample-data`).
+2. SSH into your EC2 instance created earlier.
+3. Run the following command, replacing the correct values. NOTE: For the source, you can put a path to specific folder and Neptune will automatically load all of the data files from within that folder.
+```bash
 curl -X POST \
     -H 'Content-Type: application/json' \
     <clusterURL>:<Cluster Port>/loader -d '
     {
-      "source" : "<YOUR-S3-BUCKET>",
-      "format" : "<format>",
+      "source" : "<YOUR-S3-BUCKET>/<OBJECT-KEY-NAME>",
+      "format" : "<format>", #csv, ntriples, nquads, rdfxml, turtle, etc.
       "iamRoleArn" : "<NeptuneLoadFromS3ARN>",
-      "region" : "<region>", 
+      "region" : "<region>", #us-east-1
       "failOnError" : "FALSE",
       "parallelism" : "MEDIUM"
     }'
 ```
 
-After entering the above, you will get something like this back:
-```
+4. After entering the above, you will get something like this back:
+```bash
 {
     "status" : "200 OK",
     "payload" : {
@@ -29,7 +32,7 @@ After entering the above, you will get something like this back:
     }
 }
 ```
-To confirm that the data was loaded correctly, run the follow code replace '<loadId>' with the load ID from the response:
-```
+To confirm that the data was loaded correctly, run the follow code replacing '<loadId>' with the load ID from the response:
+```bash
 curl -G '<YOUR-CLUSTER>:<CLUSTER-PORT>/loader/<loadId>'
 ```
