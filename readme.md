@@ -8,11 +8,11 @@
 # Loading Data
 1. Upload data into a S3 bucket. (sample data is provided in `sample-data`).
 2. SSH into your EC2 instance created earlier.
-3. Run the following command, replacing the correct values. NOTE: For the source, you can put a path to specific folder and Neptune will automatically load all of the data files from within that folder.
+3. Run the following command, replacing the correct values (most of these can be found from the outputs of the CloudFormation stack). NOTE: For the source, you can put a path to specific folder and Neptune will automatically load all of the data files from within that folder.
 ```bash
 curl -X POST \
     -H 'Content-Type: application/json' \
-    <clusterURL>:<Cluster Port>/loader -d '
+    `http://<clusterURL>:<Cluster Port>/loader -d '
     {
       "source" : "<YOUR-S3-BUCKET>/<OBJECT-KEY-NAME>",
       "format" : "<format>", #csv, ntriples, nquads, rdfxml, turtle, etc.
@@ -36,3 +36,7 @@ To confirm that the data was loaded correctly, run the follow code replacing '<l
 ```bash
 curl -G '<YOUR-CLUSTER>:<CLUSTER-PORT>/loader/<loadId>'
 ```
+
+# Lambda function
+1. Use the following AWS provided stack to create a lambda function use in Neptune: https://docs.aws.amazon.com/neptune/latest/userguide/get-started-cfn-lambda.html. Make sure to enter the NeptuneClusterEndpoint and select the NeptuneClientSG and the correct Subnets.
+2. 

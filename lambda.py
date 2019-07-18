@@ -19,43 +19,43 @@ def run_sample_gremlin_websocket():
     g = graph.traversal().withRemote(remoteConn)
     
     #create and open a log file
-    f = open("/tmp/output.txt", "w+")
+    #f = open("/tmp/output.txt", "w+")
 
 
     #Listing verticies/edges and properties
     vertList = g.V().toList()
     numVerticies = g.V().count().next()
-    f.write('Number of verticies: '+ str(numVerticies) + '\n')
-    f.write('\n----------------------------------------\n')
-    f.write('All verticies and their properties:' + '\n')
+    print('Number of verticies: '+ str(numVerticies) + '\n')
+    print('\n----------------------------------------\n')
+    print('All verticies and their properties:' + '\n')
     for v in vertList:
-        f.write(str(v.label) + ': '+ str(v.id) + '\n')
-        f.write(str(g.V(v.id).properties().toList()) + '\n\n')
+        print(str(v.label) + ': '+ str(v.id) + '\n')
+        print(str(g.V(v.id).properties().toList()) + '\n\n')
     
-    f.write('\n----------------------------------------\n')
-    f.write('All Edges and their weights: \n')
+    print('\n----------------------------------------\n')
+    print('All Edges and their weights: \n')
     edgeList = g.E().toList()
     for e in edgeList:
-        f.write(str(e) + '\n')
-        f.write(str(g.E(e.id).properties().toList()) + '\n\n')
-    f.write('\n----------------------------------------\n')
+        print(str(e) + '\n')
+        print(str(g.E(e.id).properties().toList()) + '\n\n')
+    print('\n----------------------------------------\n')
     
     #Filtering
-    f.write('All Adventure Games:' + '\n')
+    print('All Adventure Games:' + '\n')
     advGames = g.V().has('GameGenre','Adventure').toList()
     for game in advGames:
-        f.write(game.id + '\n')
+        print(game.id + '\n')
     
-    f.write('\n----------------------------------------\n')
-    f.write('\nThe following users like MarioKart8:' + '\n')
+    print('\n----------------------------------------\n')
+    print('\nThe following users like MarioKart8:' + '\n')
     mKart = g.V('MarioKart8').inE().toList()
     for u in mKart:
-        f.write(u.outV.id + '\n')
+        print(u.outV.id + '\n')
         
-    f.write('\n----------------------------------------\n')
-    f.close()
-    s3_client = boto3.client('s3')
-    s3_client.upload_file("/tmp/output.txt", 'neptune-test-dmmaillo', 'output.txt')
+    print('\n----------------------------------------\n')
+    #f.close()
+    #s3_client = boto3.client('s3')
+    #s3_client.upload_file("/tmp/output.txt", 'neptune-test-dmmaillo', 'output.txt')
     remoteConn.close()
     
 def run_sample_gremlin_http():
