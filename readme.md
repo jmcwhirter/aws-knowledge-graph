@@ -1,11 +1,11 @@
-# Setup
+# CloudFormation Setup
 1. Place `cf.yaml`, `cf-base.yaml`, and `cf-ec2.yaml` into an S3 bucket in your AWS account.
 2. Go to CloudFormation inside the AWS Console. Create a new stack, load from S3, and input the URL to the `cf.yaml` file in your S3 bucket.
 3. Fill out the EC2SSHKeyPairName and CloudFormationS3Path parameters
 
       For the CloudFormationS3Path, follow this example: https://your-bucket-name.s3.amazonaws.com/
 
-**Loading Data**
+# Loading Data
 1. Upload data into a S3 bucket. (sample data is provided in `sample-data`).
 2. SSH into your EC2 instance created earlier.
 3. Run the following command, replacing the correct values. NOTE: For the source, you can put a path to specific folder and Neptune will automatically load all of the data files from within that folder.
