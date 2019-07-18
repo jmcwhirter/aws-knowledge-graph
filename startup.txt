@@ -1,0 +1,23 @@
+***Load data***
+curl -X POST \
+    -H 'Content-Type: application/json' \
+    https://neptunedbcluster-4rfs3fjboqo1.cluster-c39j2axmcqn6.us-east-1.neptune.amazonaws.com:8182/loader -d '
+    {
+      "source" : "s3://neptune-test-dmmaillo",
+      "format" : "csv",
+      "iamRoleArn" : "arn:aws:iam::759449822753:role/NeptuneQuickStart-NeptuneSta-NeptuneLoadFromS3Role-10KS4DTXW96IS",
+      "region" : "us-east-1",
+      "failOnError" : "FALSE",
+      "parallelism" : "MEDIUM"
+    }'
+***Confirm load***
+curl -G 'https://neptunedbcluster-4rfs3fjboqo1.cluster-c39j2axmcqn6.us-east-1.neptune.amazonaws.com:8182/loader/05b3fc02-23b1-431a-8c00-7b78cdd4c79a'
+
+**connecting to console**
+hosts: neptunedbcluster-4rfs3fjboqo1.cluster-c39j2axmcqn6.us-east-1.neptune.amazonaws.com
+port: 8182
+connectionPool: { enableSsl: true, trustCertChainFile: "SFSRootCAG2.pem"}
+serializer: { className: org.apache.tinkerpop.gremlin.driver.ser.GryoMessageSerializerV3d0, config: { serializeResultToString: true }}
+
+aws lambda invoke --function-name NeptuneLambdaQuickStart-NeptuneLambdaFunction-VG2HRVKAK0V out --log-type Tail \
+--query 'LogResult' --output text |  base64 -d
