@@ -12,7 +12,7 @@
 ```bash
 curl -X POST \
     -H 'Content-Type: application/json' \
-    `http://<clusterURL>:<Cluster Port>/loader -d '
+    http://<clusterURL>:<Cluster Port>/loader -d '
     {
       "source" : "<YOUR-S3-BUCKET>/<OBJECT-KEY-NAME>",
       "format" : "<format>", #csv, ntriples, nquads, rdfxml, turtle, etc.
