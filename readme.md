@@ -1,4 +1,4 @@
-![](./images/knowledge-graph)
+![](./images/knowledge-graph.png)
 
 # CloudFormation Setup
 1. Place `cf.yaml`, `cf-base.yaml`, 'cf-lambda.yaml', and `cf-ec2.yaml` into an S3 bucket in your AWS account.
