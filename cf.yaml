@@ -201,6 +201,30 @@ Resources:
         NeptuneEC2InstanceProfile: !GetAtt 
           - NeptuneStack
           - Outputs.NeptuneEC2InstanceProfile
+  NeptuneLambda:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      TemplateURL: !Sub ${CloudFormationS3Path}cf-lambda.yaml
+      Parameters:
+        LambdaRuntime: python3.6
+        NeptuneSGs: !GetAtt
+          - NeptuneStack
+          - Outputs.NeptuneClientSG
+        Subnets: !GetAtt 
+          - NeptuneStack
+          - Outputs.PublicSubnet1
+          - !GetAtt 
+          - NeptuneStack
+          - Outputs.PublicSubnet2
+          - !GetAtt 
+          - NeptuneStack
+          - Outputs.PublicSubnet3
+        NeptuneClusterEndpoint: !GetAtt 
+          - NeptuneStack
+          - Outputs.DBClusterEndpoint
+        NeptuneClusterPort: !GettAtt
+          - NeptuneStack
+          - Outputs.DBClusterPort
 Outputs:
   DBClusterId:
     Description: Neptune Cluster Identifier
