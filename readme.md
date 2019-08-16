@@ -1,13 +1,14 @@
+# Knowledge Graph
 ![](./images/knowledge-graph.png)
 
-# CloudFormation Setup
+## CloudFormation Setup
 1. Place `cf.yaml`, `cf-base.yaml`, 'cf-lambda.yaml', and `cf-ec2.yaml` into an S3 bucket in your AWS account.
 2. Go to CloudFormation inside the AWS Console. Create a new stack, load from S3, and input the URL to the `cf.yaml` file in your S3 bucket.
 3. Fill out the EC2SSHKeyPairName and CloudFormationS3Path parameters
 
       For the CloudFormationS3Path, follow this example: https://your-bucket-name.s3.amazonaws.com/
 
-# Loading Data
+## Loading Data
 1. Upload data into a S3 bucket. (sample data is provided in `sample-data`).
 2. SSH into your EC2 instance created earlier.
 3. Run the following command, replacing the correct values (most of these can be found from the outputs of the CloudFormation stack). NOTE: For the source, you can put a path to specific folder and Neptune will automatically load all of the data files from within that folder.
@@ -39,10 +40,10 @@ To confirm that the data was loaded correctly, run the follow code replacing '<l
 curl -G '<YOUR-CLUSTER>:<CLUSTER-PORT>/loader/<loadId>'
 ```
 
-# Lambda function
+## Lambda function
 1. Go to the Lambda Dashboard, open the newly made function and replace the code inside of `lambda_function.py` with the contents of `lambda.py` from this repository.
 
-# API Gateway
+## API Gateway
 The API Gateway will be used to send queries to the Neptune cluster through Lambda.
 1. Go to the API Gateway dashboard in the AWS Console.
 2. Click on "Create API".
@@ -54,4 +55,4 @@ The API Gateway will be used to send queries to the Neptune cluster through Lamb
 8. Click on "Actions" and "Deploy API". Give the stage a name and click "Deploy".
 9. After deploying the API, you can now click on "Stages" on the left side, click on the name of the stage you just deployed and copy the "Invoke URL" located at the top of the screen. This will be used in the next part.
 
-# Website
+## Website
