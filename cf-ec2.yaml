@@ -294,7 +294,7 @@ Resources:
     DependsOn: NeptuneEC2ClientInstance
     Properties:
       Handle: !Ref WaitHandle
-      Timeout: '1200'
+      Timeout: '1500'
 Outputs:
   EC2Client:
     Description: EC2 client Identifier
