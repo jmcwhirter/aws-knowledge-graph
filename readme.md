@@ -1,3 +1,5 @@
+![](./images/knowledge-graph)
+
 # CloudFormation Setup
 1. Place `cf.yaml`, `cf-base.yaml`, 'cf-lambda.yaml', and `cf-ec2.yaml` into an S3 bucket in your AWS account.
 2. Go to CloudFormation inside the AWS Console. Create a new stack, load from S3, and input the URL to the `cf.yaml` file in your S3 bucket.

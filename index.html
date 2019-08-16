@@ -8,16 +8,15 @@
 
 		<style type="text/css">
 			#mynetwork {
-				width: 1000px;
-				height: 600px;
 				border: 1px solid lightgray;
+				background-color: #595750;
 			}
 		</style>
 	</head>
-	<body>
+	<body bgcolor="#E6E6FA">
 
 	<p>
-		Create a simple network with some nodes and edges.
+		Click on a user to highlight the games they like. Hover over a user node to see their Gamer Alias.
 	</p>
 
 	<div id="mynetwork"></div>
@@ -40,12 +39,15 @@
 
 		for (var i = 0; i < nodes.length; i++) {
 			var label = nodes[i]['@value']['id']
-			node_list.push({ id: i, label: label})
+			if (nodes[i]['@value']['label'] === "person") {
+				var title = nodes[i]['@value']['properties']['GamerAlias'][0]['@value']['value']
+				node_list.push({ id: i, label: label, title: title})
+			} else {
+				node_list.push({ id: i, label: label})
+			}
 			label_list.push(label)
 		}
 
-		console.log(label_list)
-		console.log(node_list)
 		var nodes = new vis.DataSet(node_list)
 
 		Http.open("GET", PROXY_API_URL + '/edges', false);
@@ -57,7 +59,6 @@
 		data = JSON.parse(temp)
 		edges = data['data']['@value']
 		var edge_list = []
-		console.log(edges[0]['@value'])
 		for (var i = 0; i < edges.length; i++) {
 			var currEdge = edges[i]['@value']
 			var inV = currEdge['inV']
@@ -67,13 +68,13 @@
 			var label = currEdge['label']
 			//{from: 1, to: 2, label: 'middle',     font: {align: 'middle'}},
 			edge_list.push({
+				id: i,
 				from: outV_idx,
 				to: inV_idx,
 				label: label,
 				font: {align: 'middle'}
 			})
 		}
-		console.log(edge_list)
 		var edges = new vis.DataSet(edge_list)
 
 		// create a network
@@ -82,7 +83,10 @@
 			nodes: nodes,
 			edges: edges
 		};
+
 		var options = {
+            width: (window.innerWidth - 25) + "px",
+			height: (window.innerHeight - 75) + "px",
 	        nodes: {
 	            shape: 'box',
 	            size: 15,
@@ -103,6 +107,7 @@
 	        	}
 	        }
     	};
+
 		var network = new vis.Network(container, data, options);
 		network.stabilize(2000);
 	</script>
