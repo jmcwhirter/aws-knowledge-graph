@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Network | Basic usage</title>
+
+		<script type="text/javascript" src="vis.js"></script>
+  		<link href="./vis-network.css" rel="stylesheet" type="text/css" />
+
+		<style type="text/css">
+			#mynetwork {
+				width: 1000px;
+				height: 600px;
+				border: 1px solid lightgray;
+			}
+		</style>
+	</head>
+	<body>
+
+	<p>
+		Create a simple network with some nodes and edges.
+	</p>
+
+	<div id="mynetwork"></div>
+
+	<script type="text/javascript">
+        var PROXY_API_URL = "https://7poii8qm98.execute-api.us-east-1.amazonaws.com/test";
+
+		const Http = new XMLHttpRequest();
+		Http.open("GET", PROXY_API_URL + '/nodes', false);
+		Http.send(null);
+
+
+		var temp = Http.responseText
+		temp = temp.replace(/'/g, '"');
+		var data = JSON.parse(temp)
+		var nodes = data['data']['@value']
+		var node_list = []
+		var label_list = []
+
+
+		for (var i = 0; i < nodes.length; i++) {
+			var label = nodes[i]['@value']['id']
+			node_list.push({ id: i, label: label})
+			label_list.push(label)
+		}
+
+		console.log(label_list)
+		console.log(node_list)
+		var nodes = new vis.DataSet(node_list)
+
+		Http.open("GET", PROXY_API_URL + '/edges', false);
+		Http.send(null);
+
+
+		temp = Http.responseText
+		temp = temp.replace(/'/g, '"');
+		data = JSON.parse(temp)
+		edges = data['data']['@value']
+		var edge_list = []
+		console.log(edges[0]['@value'])
+		for (var i = 0; i < edges.length; i++) {
+			var currEdge = edges[i]['@value']
+			var inV = currEdge['inV']
+			var outV = currEdge['outV']
+			var inV_idx = label_list.indexOf(inV)
+			var outV_idx = label_list.indexOf(outV)
+			var label = currEdge['label']
+			//{from: 1, to: 2, label: 'middle',     font: {align: 'middle'}},
+			edge_list.push({
+				from: outV_idx,
+				to: inV_idx,
+				label: label,
+				font: {align: 'middle'}
+			})
+		}
+		console.log(edge_list)
+		var edges = new vis.DataSet(edge_list)
+
+		// create a network
+		var container = document.getElementById('mynetwork');
+		var data = {
+			nodes: nodes,
+			edges: edges
+		};
+		var options = {
+	        nodes: {
+	            shape: 'box',
+	            size: 15,
+	            font: {
+	                size: 20
+	            },
+	            borderWidth: 2,
+	            shadow:true
+	        },
+	        edges: {
+	            width: 2,
+	            shadow:true
+	        },
+	        physics: {
+	        	enabled: false,
+	        	barnesHut: {
+	        		avoidOverlap: 1
+	        	}
+	        }
+    	};
+		var network = new vis.Network(container, data, options);
+		network.stabilize(2000);
+	</script>
+
+
+	</body>
+</html>
