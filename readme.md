@@ -56,3 +56,10 @@ The API Gateway will be used to send queries to the Neptune cluster through Lamb
 9. After deploying the API, you can now click on "Stages" on the left side, click on the name of the stage you just deployed and copy the "Invoke URL" located at the top of the screen. This will be used in the next part.
 
 ## Website
+1. Create an S3 bucket that will host the website.
+2. Upload `index.html`, `vis-network.css`, and `vis.js` to the bucket.
+3. Under "Properties" for the bucket, enable "Static Website Hosting." When asked, set the "Index Document" to `index.html`
+4. Use your web browser to browse to http://<your-bucket-name>.s3-website-us-east-1.amazonaws.com
+
+This is what you should see:
+![](./images/Screenshot.png)
