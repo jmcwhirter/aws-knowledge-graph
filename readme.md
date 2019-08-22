@@ -59,7 +59,7 @@ The API Gateway will be used to send queries to the Neptune cluster through Lamb
 1. Create an S3 bucket that will host the website.
 2. Upload `index.html`, `vis-network.css`, and `vis.js` to the bucket.
 3. Under "Properties" for the bucket, enable "Static Website Hosting." When asked, set the "Index Document" to `index.html`
-4. Use your web browser to browse to http://<your-bucket-name>.s3-website-us-east-1.amazonaws.com
+4. Use your web browser to browse to http://your-bucket-name.s3-website-us-east-1.amazonaws.com
 
 This is what you should see:
 ![](./images/Screenshot.png)
